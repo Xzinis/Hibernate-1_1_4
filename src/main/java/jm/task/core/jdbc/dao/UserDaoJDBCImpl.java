@@ -46,12 +46,11 @@ public class UserDaoJDBCImpl implements UserDao {
     public void saveUser(String name, String lastName, byte age) {
         String sql = "INSERT INTO users(NAME, SURNAME, AGE) VALUES(? ,?, ?)";
         try (PreparedStatement preparedStatement = connect.prepareStatement(sql)) {
-            connect.setAutoCommit(false);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-            connect.commit();
+            
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -61,10 +60,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) {
         try (PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM users WHERE ID = ?")) {
-            connect.setAutoCommit(false);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-            connect.commit();
+            
         } catch (SQLException e) {
            e.printStackTrace();
         }
@@ -77,7 +75,6 @@ public class UserDaoJDBCImpl implements UserDao {
         try (ResultSet resultSet = connect.createStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 User users = new User();
-                connect.setAutoCommit(false);
                 users.setId(resultSet.getLong("ID"));
                 users.setName(resultSet.getString("NAME"));
                 users.setLastName(resultSet.getString("SURNAME"));
