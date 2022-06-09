@@ -18,16 +18,5 @@ public class Util {
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-        //Connection connect = null;
-
-       // try {
-       //     Class.forName(DB_DRIVER);
-      //      connect = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-      //  } catch (ClassNotFoundException | SQLException e) {
-      //      e.printStackTrace();
-      //  }
-     //   return connect;
     }
-
-
 }
